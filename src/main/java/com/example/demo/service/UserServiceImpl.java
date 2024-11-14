@@ -5,6 +5,7 @@ import com.example.demo.bo.UpdateUserDetails;
 import com.example.demo.bo.UserResponse;
 import com.example.demo.entity.RoleEntity;
 import com.example.demo.entity.UserEntity;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.util.Roles;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -65,10 +67,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse profileDetails() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        // Log the username retrieved from SecurityContext
+        System.out.println("Retrieved username from SecurityContext: " + username);
+
         UserEntity existingUser = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        UserResponse response = new UserResponse(existingUser.getId(), existingUser.getUsername());
-        return response;
+                .orElseThrow(() -> new UserNotFoundException("Incorrect username: " + username));
+
+        return new UserResponse(existingUser.getId(), existingUser.getUsername());
     }
 
     @Override

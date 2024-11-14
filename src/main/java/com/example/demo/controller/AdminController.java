@@ -21,12 +21,12 @@ public class AdminController {
     }
 
     @GetMapping("/user/{id}")
-    public UserEntity getUserById(Long id) {
+    public UserEntity getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @DeleteMapping("/delete-user/{id}")
-    public void deleteUserById(Long id) {
+    public void deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);
     }
 
