@@ -4,13 +4,13 @@ public class UserResponse {
 
     private Long id;
 
-    private String name;
+    private String username;
 
-    private String status;
+//    private String status;
 
     public UserResponse(Long id, String name) {
         this.id = id;
-        this.name = name;
+        this.username = name;
     }
 
     public Long getId() {
@@ -21,19 +21,19 @@ public class UserResponse {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 }
